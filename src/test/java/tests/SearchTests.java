@@ -28,8 +28,8 @@ public class SearchTests {
         caps.setCapability("app", "bs://c700ce60cf13ae8ed97705a55b8e022f13c5827c");
 
         // Specify device and os_version for testing
-        caps.setCapability("device", "Samsung Galaxy S22");
-        caps.setCapability("os_version", "13.0");
+        caps.setCapability("device", "Google Pixel 6");
+        caps.setCapability("os_version", "12.0");
 
         // Set other BrowserStack capabilities
         caps.setCapability("project", "First Java Project");
