@@ -38,7 +38,8 @@ public class BrowserstackDriver implements WebDriverProvider{
         caps.setCapability("platformName", "android");
         caps.setCapability("app", "bs://c700ce60cf13ae8ed97705a55b8e022f13c5827c");
 
-        /*
+
+
         HashMap<String, Object> browserstackOptions = new HashMap<String, Object>();
         browserstackOptions.put("userName", "anna_A29J6N");
         browserstackOptions.put("accessKey", "CjzuJrSssS2sxHpeX632");
@@ -46,7 +47,7 @@ public class BrowserstackDriver implements WebDriverProvider{
         browserstackOptions.put("osVersion", "14.0");
         browserstackOptions.put("projectName", "First Java Project");
 
-        caps.setCapability("bstack:options", browserstackOptions);*/
+        caps.setCapability("bstack:options", browserstackOptions);
 
 
 
