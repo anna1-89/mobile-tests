@@ -5,9 +5,6 @@ import java.util.Objects;
 
 public final class DriverFactory {
 
-       private DriverFactory() {
-        }
-
     public String getDriver() {
         String browser = null;
 
