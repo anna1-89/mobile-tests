@@ -1,33 +1,21 @@
 package config;
 
 import org.aeonbits.owner.Config;
+import org.aeonbits.owner.Config.Sources;
 
-@Config.Sources({
-        "classpath:BrowserstackConfig.properties"
-})
+@Sources("classpath:BrowserstackConfig.properties")
 public interface BrowserstackConfig extends Config {
 
-    String baseUrl();
-
-    String userName();
-
-    String accessKey();
-
-    String projectName();
-
-    String buildName();
-
-    String sessionName();
-
-    String deviceName();
-
-    String osVersion();
-
-    String appiumVersion();
-
-    String platformName();
-
-    String app();
+    @Key("browserstackUrl") String browserstackUrl();
+    @Key("userName") String userName();
+    @Key("accessKey") String accessKey();
+    @Key("projectName") String projectName();
+    @Key("buildName") String buildName();
+    @Key("sessionName") String sessionName();
+    @Key("browserstackDevice") String browserstackDevice();
+    @Key("browserstackOsVersion") String browserstackOsVersion();
+    @Key("appiumVersion") String appiumVersion();
+    @Key("app") String app();
 
 
 }

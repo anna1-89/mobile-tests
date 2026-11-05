@@ -2,16 +2,25 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import config.ConfigProvider;
 import drivers.BrowserstackDriver;
+import drivers.DriverFactory;
 import helpers.Attach;
+import io.appium.java_client.AppiumBy;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
-import static com.codeborne.selenide.Selenide.open;
 
 public class TestBase {
 
@@ -24,8 +33,24 @@ public class TestBase {
 
     @BeforeEach
     void beforeEach() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-        open();
+        if (!SelenideLogger.hasListener("AllureSelenide")) {
+            SelenideLogger.addListener("AllureSelenide",
+                    new AllureSelenide().screenshots(true).savePageSource(true));
+        }
+
+        WebDriver driver = DriverFactory.getDriver().createDriver(null);
+
+        WebDriverRunner.setWebDriver(driver);
+        try {
+            new WebDriverWait(driver, Duration.ofSeconds(10))
+                    .until(ExpectedConditions.elementToBeClickable(
+                            AppiumBy.androidUIAutomator(
+                                    "new UiSelector().text(\"OK\")"
+                            )
+                    ))
+                    .click();
+        } catch (TimeoutException e) {
+        }
     }
 
     @AfterEach
