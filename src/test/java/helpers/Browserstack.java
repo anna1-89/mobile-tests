@@ -11,7 +11,7 @@ public class Browserstack {
 
         return given()
                 .auth().basic(
-                        ConfigProvider.browserStackConfig.userName(),
+                        ConfigProvider.browserStackConfig.username(),
                         ConfigProvider.browserStackConfig.accessKey())
                 .get(url)
                 .then()

@@ -33,24 +33,7 @@ public class TestBase {
 
     @BeforeEach
     void beforeEach() {
-        if (!SelenideLogger.hasListener("AllureSelenide")) {
-            SelenideLogger.addListener("AllureSelenide",
-                    new AllureSelenide().screenshots(true).savePageSource(true));
-        }
-
-        WebDriver driver = DriverFactory.getDriver().createDriver(null);
-
-        WebDriverRunner.setWebDriver(driver);
-        try {
-            new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.elementToBeClickable(
-                            AppiumBy.androidUIAutomator(
-                                    "new UiSelector().text(\"OK\")"
-                            )
-                    ))
-                    .click();
-        } catch (TimeoutException e) {
-        }
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 
     @AfterEach
