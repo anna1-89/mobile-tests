@@ -25,14 +25,14 @@ public class SearchTests_old {
         caps.setCapability("browserstack.key", "5yrxu4nFTKkRExUAhqxh");
 
         // Set URL of the application under test
-        caps.setCapability("app", "bs://c700ce60cf13ae8ed97705a55b8e022f13c5827c");
+        caps.setCapability("app", "bs://594d72435747afa6dde047236813cfdd9cc6b410");
 
         // Specify device and os_version for testing
         caps.setCapability("device", "Google Pixel 8 Pro");
         caps.setCapability("os_version", "14.0");
 
         // Set other BrowserStack capabilities
-        caps.setCapability("project", "First Java Project");
+        caps.setCapability("project", "mobile-tests");
         caps.setCapability("build", "browserstack-build-1");
         caps.setCapability("name", "first_test");
 

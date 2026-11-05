@@ -1,61 +1,43 @@
 package drivers;
 
 import com.codeborne.selenide.WebDriverProvider;
+import config.ConfigProvider;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.options.UiAutomator2Options;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import javax.annotation.Nonnull;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
 public class BrowserstackDriver implements WebDriverProvider{
 
-    @Nonnull
     @Override
-    public WebDriver createDriver(@Nonnull Capabilities capabilities) {
+    public WebDriver createDriver(Capabilities capabilities) {
         MutableCapabilities caps = new MutableCapabilities();
-/*
-        // Set your access credentials
-        caps.setCapability("browserstack.user", "anna_A29J6N");
-        caps.setCapability("browserstack.key", "CjzuJrSssS2sxHpeX632");
 
-        // Set URL of the application under test
-        caps.setCapability("app", "bs://c700ce60cf13ae8ed97705a55b8e022f13c5827c");
+        HashMap<String, Object> bstackOptions = new HashMap<>();
+        bstackOptions.put("userName", ConfigProvider.browserStackConfig.userName());
+        bstackOptions.put("accessKey", ConfigProvider.browserStackConfig.accessKey());
+        bstackOptions.put("projectName", ConfigProvider.browserStackConfig.projectName());
+        bstackOptions.put("buildName", ConfigProvider.browserStackConfig.buildName());
+        bstackOptions.put("sessionName", ConfigProvider.browserStackConfig.sessionName());
+        bstackOptions.put("deviceName", ConfigProvider.browserStackConfig.deviceName());
+        bstackOptions.put("osVersion", ConfigProvider.browserStackConfig.osVersion());
+        bstackOptions.put("appiumVersion", ConfigProvider.browserStackConfig.appiumVersion());
 
-        // Specify device and os_version for testing
-        caps.setCapability("device", "Google Pixel 8 Pro");
-        caps.setCapability("os_version", "14.0");
+        UiAutomator2Options options = new UiAutomator2Options();
+        options.merge(capabilities);
+        options.setApp(ConfigProvider.browserStackConfig.app());
+        options.setCapability("bstack:options", bstackOptions);
+        caps.setCapability("appium:app", ConfigProvider.browserStackConfig.app());
+        caps.setCapability("bstack:options", bstackOptions);
 
-        // Set other BrowserStack capabilities
-        caps.setCapability("project", "First Java Project");
-        caps.setCapability("build", "browserstack-build-1");
-        caps.setCapability("name", "first_test"); */
-
-
-        caps.setCapability("platformName", "android");
-        caps.setCapability("app", "bs://c700ce60cf13ae8ed97705a55b8e022f13c5827c");
-
-
-
-        HashMap<String, Object> browserstackOptions = new HashMap<String, Object>();
-        browserstackOptions.put("userName", "anna_A29J6N");
-        browserstackOptions.put("accessKey", "CjzuJrSssS2sxHpeX632");
-        browserstackOptions.put("deviceName", "Google Pixel 8 Pro");
-        browserstackOptions.put("osVersion", "14.0");
-        browserstackOptions.put("projectName", "First Java Project");
-
-        caps.setCapability("bstack:options", browserstackOptions);
-
-
-
-        // Initialise the remote Webdriver using BrowserStack remote URL
-        // and desired capabilities defined above
         try {
-            return new RemoteWebDriver(
-                    new URL("https://hub.browserstack.com/wd/hub"), caps);
+            return new AndroidDriver(
+                    new URL(ConfigProvider.browserStackConfig.baseUrl()), options);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
