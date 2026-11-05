@@ -1,23 +1,20 @@
 package drivers;
 
 
-import com.codeborne.selenide.WebDriverProvider;
-import config.ConfigProvider;
-
-import java.util.Locale;
+import java.util.Objects;
 
 public final class DriverFactory {
 
        private DriverFactory() {
         }
 
-        public static WebDriverProvider getDriver() {
-            return switch (ConfigProvider.deviceHost().toLowerCase(Locale.ROOT)) {
-                case "browserstack" -> new BrowserstackDriver();
-                default -> throw new IllegalArgumentException(
-                        "Unknown deviceHost. Use 'browserstack', 'emulation' or 'real'."
-                );
-            };
+    public String getDriver() {
+        String browser = null;
+
+        if (Objects.equals(System.getProperty("deviceHost"), "browserstack")) {
+            browser = BrowserstackDriver.class.getName();
         }
+        return browser;
+    }
 
 }

@@ -11,7 +11,7 @@ public class ConfigProvider {
         return System.getProperty("deviceHost", "browserstack");
     }
 
-    public static final BrowserstackConfig BROWSERSTACK_CONFIG =
+    public static final BrowserstackConfig browserStackConfig =
             ConfigFactory.create(BrowserstackConfig.class, System.getProperties());
 
 
