@@ -8,7 +8,7 @@ public class ConfigProvider {
     }
 
     public static String deviceHost() {
-        return System.getProperty("deviceHost", "emulation");
+        return System.getProperty("deviceHost", "browserstack");
     }
 
     public static final BrowserstackConfig BROWSERSTACK_CONFIG =
